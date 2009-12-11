@@ -67,11 +67,16 @@ module CouchRest
     # Query a CouchDB view as defined by a <tt>_design</tt> document. Accepts
     # paramaters as described in http://wiki.apache.org/couchdb/HttpViewApi
     def view(name, params = {}, &block)
-      keys = params.delete(:keys)
       name = name.split('/') # I think this will always be length == 2, but maybe not...
       dname = name.shift
       vname = name.join('/')
-      url = CouchRest.paramify_url "#{@root}/_design/#{dname}/_view/#{vname}", params
+      view_name = "#{dname}/_view/#{vname}"
+      design(view_name, params, &block)
+    end
+    
+    def design(name, params = {}, &block)
+      keys = params.delete(:keys)
+      url = CouchRest.paramify_url "#{@root}/_design/#{name}", params
       if keys
         CouchRest.post(url, {:keys => keys})
       else
