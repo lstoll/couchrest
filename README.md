@@ -60,7 +60,9 @@ Creating and Querying Views:
           }
         }
       })
-    puts @db.view('first/test')['rows'].inspect 
+    puts @db.design('first/_view/test')['rows'].inspect 
+
+You can also call list and other functions by calling their design doc path.
 
 
 ## CouchRest::ExtendedDocument  
