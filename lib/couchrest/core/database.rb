@@ -81,7 +81,7 @@ module CouchRest
         CouchRest.post(url, {:keys => keys})
       else
         if block_given?
-          @streamer.view("_design/#{dname}/_view/#{vname}", params, &block)
+          @streamer.view("_design/#{name}", params, &block)
         else
           CouchRest.get url
         end
